@@ -68,7 +68,8 @@ public class FeeService {
      * @return the list of receipts for the student
      */
     public List<Receipt> getReceiptsByStudentId(Long studentId) {
-        return receiptRepository.findByStudentId(studentId);
+    	return null;
+//        return receiptRepository.findByStudentId(studentId);
     }
 
     /**

@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan("com.fees.model")
+@EntityScan("com.fees.entity")
 @EnableJpaRepositories("com.fees.repository")
 
 public class FeeManagementSystemApplication {
