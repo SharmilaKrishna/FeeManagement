@@ -10,7 +10,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.fees.entity.FeeRequest;
-import com.fees.model.Receipt;
+import com.fees.entity.Receipt;
 import com.fees.repository.ReceiptRepository;
 import com.student.model.Student;
 

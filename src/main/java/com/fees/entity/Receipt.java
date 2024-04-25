@@ -1,4 +1,4 @@
-package com.fees.model;
+package com.fees.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

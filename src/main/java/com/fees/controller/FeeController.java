@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fees.entity.FeeRequest;
-import com.fees.model.Receipt;
+import com.fees.entity.Receipt;
 import com.fees.service.FeeService;
 
 @RestController
