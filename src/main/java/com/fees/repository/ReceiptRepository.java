@@ -12,4 +12,6 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
 	
 	
 	List<Receipt> findByStudentId(Long studentId);
+
+	List<Receipt> findAll();
 }
