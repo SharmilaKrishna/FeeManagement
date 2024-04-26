@@ -17,6 +17,9 @@ import com.fees.entity.FeeRequest;
 import com.fees.entity.Receipt;
 import com.fees.service.FeeService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Fee Controller", description = "The Fee Controller provides CRUD operations for Fees")
 @RestController
 @RequestMapping("/fees")
 public class FeeController {
