@@ -12,8 +12,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fees.entity.FeeRequest;
 import com.fees.entity.Receipt;
+import com.fees.entity.Student;
 import com.fees.repository.ReceiptRepository;
-import com.student.model.Student;
 
 @Service
 public class FeeService {
@@ -68,8 +68,7 @@ public class FeeService {
      * @return the list of receipts for the student
      */
     public List<Receipt> getReceiptsByStudentId(Long studentId) {
-    	return null;
-//        return receiptRepository.findByStudentId(studentId);
+        return receiptRepository.findByStudentId(studentId);
     }
 
     /**
