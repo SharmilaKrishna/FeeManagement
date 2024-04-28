@@ -22,9 +22,6 @@ public class FeesDto {
     private String cardNumber;
     private String cardType;
     private Long receiptId;
-    private List<ItemDto> itemDto;
-    
-    
 
     public Long getStudentId() {
 		return studentId;
@@ -132,20 +129,6 @@ public class FeesDto {
 		this.receiptId = receiptId;
 	}
 
-
-
-	public List<ItemDto> getItemDto() {
-		return itemDto;
-	}
-
-
-
-	public void setItemDto(List<ItemDto> itemDto) {
-		this.itemDto = itemDto;
-	}
-
-
-
 	public FeesDto(Long studentId, BigDecimal amount, Date paymentDate, String status,
                    String studentName, String referenceNumber, String cardNumber, String cardType,
                    Long receiptId) {
@@ -159,4 +142,11 @@ public class FeesDto {
         this.cardType = cardType;
         this.receiptId = receiptId; 
     }
+
+
+
+	
+
+
+
 }
