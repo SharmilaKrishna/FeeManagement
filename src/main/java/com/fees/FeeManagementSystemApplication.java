@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EntityScan("com.fees.entity")
 @EnableJpaRepositories("com.fees.repository")
-
 public class FeeManagementSystemApplication {
 
 	public static void main(String[] args) {

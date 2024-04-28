@@ -1,82 +1,35 @@
 package com.fees.service;
 
-
-import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
-
-import com.fees.entity.FeeRequest;
+import com.fees.dto.FeesDto;
+import com.fees.entity.Fees;
+import com.fees.entity.ItemDetail;
 import com.fees.entity.Receipt;
-import com.fees.entity.Student;
-import com.fees.repository.ReceiptRepository;
 
-@Service
-public class FeeService {
-    
-    @Autowired
-    private ReceiptRepository receiptRepository;
-    
-    @Autowired
-    private RestTemplate restTemplate;
+public interface FeeService {
+	
+	Fees createFeeAndReceipt(FeesDto feesDto);
+	
+	FeesDto getFeesDtoById(Long feesId);
+	
+	List<Fees> getAllFees();
+	
+	Receipt saveReceipt(Receipt receipt);
+	
+	Receipt getReceiptById(Long id);
+	
+	ItemDetail saveItemDetail(ItemDetail itemDetail);
+	
+	ItemDetail getItemDetailById(Long id);
 
-    @Value("${student.service.url}")
-    private String studentServiceUrl;
+	List<ItemDetail> getAllItemDetails();
 
-    /**
-     * Collects fee from a student.
-     *
-     * @param feeRequest the fee request containing student ID and amount
-     * @return the receipt of the fee collection
-     * @throws RuntimeException if the student is not found
-     */
-    public Receipt collectFee(FeeRequest feeRequest) {
-        try {
-            // Retrieve student information from student service
-            Student student = restTemplate.getForObject(studentServiceUrl + feeRequest.getStudentId(), Student.class);
-            
-            // Check if student exists
-            if (student == null) {
-                throw new RuntimeException("Student not found with ID: " + feeRequest.getStudentId());
-            }
-            
-            // Associate fee with student
-            Receipt receipt = new Receipt();
-            receipt.setStudentId(student.getId());
-            receipt.setStudentName(student.getName()); 
-            receipt.setAmount(feeRequest.getAmount());
-            receipt.setCollectionDate(new Date());
-            receipt.setCardNum(feeRequest.getCardNum());
-            receipt.setCardType(feeRequest.getCardType());
-            receipt.setReferenceId(feeRequest.getReferenceId());
-            // Save receipt in repository
-            return receiptRepository.save(receipt);
-        } catch (RestClientException e) {
-            // Handle RestClientException
-            throw new RuntimeException("Error communicating with student service", e);
-        }
-    }
+	void deleteFee(Long id);
 
-    /**
-     * Retrieves all receipts for a given student ID.
-     *
-     * @param studentId the ID of the student
-     * @return the list of receipts for the student
-     */
-    public List<Receipt> getReceiptsByStudentId(Long studentId) {
-        return receiptRepository.findByStudentId(studentId);
-    }
+	void deleteReceipt(Long id);
 
-    /**
-     * Retrieves all receipts.
-     *
-     * @return the list of all receipts
-     */
-    public List<Receipt> findAllReceipts() {
-        return receiptRepository.findAll();
-    }
+	void deleteItemDetail(Long id);
+
+	List<Receipt> getReceiptsByStudentId(Long studentId);
 }

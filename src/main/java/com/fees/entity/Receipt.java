@@ -1,82 +1,150 @@
 package com.fees.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
+@Table(name = "receipt")
+@Getter
+@Setter
+@EqualsAndHashCode(of = {"receiptId"})
+@ToString(of = {"receiptId", "transactionDate", "studentName", "referenceNumber", "totalAmount"})
 public class Receipt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "receipt_id")
+    private Long receiptId;
 
-    private Long studentId;
-    private double amount;
-    private Date collectionDate;
+    @OneToOne
+    @JoinColumn(name = "fees_id")
+    private Fees fees;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date transactionDate;
+
     private String studentName;
-    
-    @Getter @Setter
-	private String cardNum;
-	
-	@Getter @Setter
+
+    private String referenceNumber;
+
+    private String cardNumber;
+
     private String cardType;
-	
-	@Getter @Setter
-    private String referenceId;
+
+    private BigDecimal totalAmount;
     
-	public Long getId() {
-		return id;
+    
+
+    public Long getReceiptId() {
+		return receiptId;
 	}
-	public void setId(Long id) {
-		this.id = id;
+
+
+
+	public void setReceiptId(Long receiptId) {
+		this.receiptId = receiptId;
 	}
-	public Long getStudentId() {
-		return studentId;
+
+
+
+	public Fees getFees() {
+		return fees;
 	}
-	public void setStudentId(Long studentId) {
-		this.studentId = studentId;
+
+
+
+	public void setFees(Fees fees) {
+		this.fees = fees;
 	}
-	public double getAmount() {
-		return amount;
+
+
+
+	public Date getTransactionDate() {
+		return transactionDate;
 	}
-	public void setAmount(double amount) {
-		this.amount = amount;
+
+
+
+	public void setTransactionDate(Date transactionDate) {
+		this.transactionDate = transactionDate;
 	}
-	public Date getCollectionDate() {
-		return collectionDate;
-	}
-	public void setCollectionDate(Date collectionDate) {
-		this.collectionDate = collectionDate;
-	}
+
+
+
 	public String getStudentName() {
 		return studentName;
 	}
+
+
+
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
 	}
-	public String getCardNum() {
-		return cardNum;
+
+
+
+	public String getReferenceNumber() {
+		return referenceNumber;
 	}
-	public void setCardNum(String cardNum) {
-		this.cardNum = cardNum;
+
+
+
+	public void setReferenceNumber(String referenceNumber) {
+		this.referenceNumber = referenceNumber;
 	}
+
+
+
+	public String getCardNumber() {
+		return cardNumber;
+	}
+
+
+
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
+
+
 	public String getCardType() {
 		return cardType;
 	}
+
+
+
 	public void setCardType(String cardType) {
 		this.cardType = cardType;
 	}
-	public String getReferenceId() {
-		return referenceId;
+
+
+
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
 	}
-	public void setReferenceId(String referenceId) {
-		this.referenceId = referenceId;
+
+
+
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
 	}
-  
+
+
+
+	public Receipt(Fees fees, String studentName, String referenceNumber, String cardNumber, String cardType) {
+        this.fees = fees;
+        this.studentName = studentName;
+        this.referenceNumber = referenceNumber;
+        this.cardNumber = cardNumber;
+        this.cardType = cardType;
+        this.transactionDate = new Date(); // Defaulting to the current date/time
+    }
+    
+    
 }

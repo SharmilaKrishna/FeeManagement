@@ -1,11 +1,11 @@
 package com.fees.controller;
 
 
-import java.util.List;
+import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,43 +13,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fees.entity.FeeRequest;
-import com.fees.entity.Receipt;
+import com.fees.dto.FeesDto;
 import com.fees.service.FeeService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "Fee Controller", description = "The Fee Controller provides CRUD operations for Fees")
+@Tag(name = "Fee Controller", description = "Controller for managing fees, receipts, and purchase details")
 @RestController
-@RequestMapping("/fees")
+@RequestMapping("/api")
 public class FeeController {
 
-	@Autowired
-	private FeeService feeService;
+    @Autowired
+    private FeeService feeService;
 
-	@PostMapping("/collect")
-	public ResponseEntity<Receipt> collectFee(@RequestBody FeeRequest feeRequest) {
-		try {
-			Receipt receipt = feeService.collectFee(feeRequest);
-			return new ResponseEntity<>(receipt, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+    @Operation(summary = "Create a fee and receipt", description = "Create a new fee and associated receipt from the provided DTO")
+    @PostMapping("/fee")
+    public ResponseEntity<?> createFee(@RequestBody @Validated FeesDto feesDto) {
+        if (feesDto.getAmount() == null || feesDto.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            return ResponseEntity.badRequest().body("Amount must be greater than zero.");
+        }
+
+        return ResponseEntity.ok(feeService.createFeeAndReceipt(feesDto));
+    }
 
 
-	@GetMapping("/receipts/{studentId}")
-	public ResponseEntity<List<Receipt>> getReceiptsForStudent(@PathVariable Long studentId) {
-		try {
-			List<Receipt> receipts = feeService.getReceiptsByStudentId(studentId);
-			return new ResponseEntity<>(receipts, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	@GetMapping("/receipts")
-	public List<Receipt> getAllReceipts() {
-	    return feeService.findAllReceipts();
-	}
+    @Operation(summary = "Get a fee by ID", description = "Retrieve detailed fee information by its ID")
+    @GetMapping("/fees/{id}")
+    public ResponseEntity<FeesDto> getFeeById(@PathVariable Long id) {
+        FeesDto feesDto = feeService.getFeesDtoById(id);
+        return feesDto != null ? ResponseEntity.ok(feesDto) : ResponseEntity.notFound().build();
+    }
+
 }
