@@ -2,6 +2,7 @@ package com.fees.controller;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,13 @@ public class FeeController {
     public ResponseEntity<FeesDto> getFeeById(@PathVariable Long id) {
         FeesDto feesDto = feeService.getFeesDtoById(id);
         return feesDto != null ? ResponseEntity.ok(feesDto) : ResponseEntity.notFound().build();
+    }
+    
+    @Operation(summary = "Get a fee by ID", description = "Retrieve detailed fee information by its ID")
+    @GetMapping("/fees/student/{studentId}")
+    public List<FeesDto> getReceiptId(@PathVariable Long studentId) {
+        List<FeesDto> receiptsByStudentId = feeService.getFeeByStudentId(studentId);
+        return receiptsByStudentId;
     }
 
 }

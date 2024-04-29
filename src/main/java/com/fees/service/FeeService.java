@@ -23,4 +23,6 @@ public interface FeeService {
 	void deleteReceipt(Long id);
 
 	List<Receipt> getReceiptsByStudentId(Long studentId);
+
+	List<FeesDto> getFeeByStudentId(Long studentId);
 }

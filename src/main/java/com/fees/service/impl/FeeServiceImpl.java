@@ -69,9 +69,6 @@ public class FeeServiceImpl implements FeeService {
 
 	   return fee;
 	}
-	
-
-	
 
 	@Override
 	public Receipt saveReceipt(Receipt receipt) {
@@ -100,13 +97,23 @@ public class FeeServiceImpl implements FeeService {
 		receiptRepository.deleteById(id);
 	}
 
-	 @Override
-	public List<Receipt> getReceiptsByStudentId(Long studentId) {
-		return null;
-	}
+	
 
 	@Override
 	public FeesDto getFeesDtoById(Long feesId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<FeesDto> getFeeByStudentId(Long studentId) {
+		
+		return feeRepository.findFeesDtoByStudentId(studentId);
+	}
+
+
+	public List<Receipt> getReceiptsByStudentId(Long studentId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

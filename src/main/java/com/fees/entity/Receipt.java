@@ -39,7 +39,7 @@ public class Receipt {
 
     private BigDecimal totalAmount;
     
-    
+    public Receipt() {};
 
     public Long getReceiptId() {
 		return receiptId;
