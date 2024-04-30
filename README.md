@@ -14,7 +14,7 @@ The project follows the CodeFirst design approach.
 
 Before you begin, ensure you have met the following requirements:
 
-- Java 8 or higher installed.
+- Java 17 installed.
 - Maven 3.x installed.
 - Git installed.
 
