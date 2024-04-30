@@ -105,10 +105,8 @@ public class FeeServiceImpl implements FeeService {
 		return null;
 	}
 
-
 	@Override
 	public List<FeesDto> getFeeByStudentId(Long studentId) {
-		
 		return feeRepository.findFeesDtoByStudentId(studentId);
 	}
 

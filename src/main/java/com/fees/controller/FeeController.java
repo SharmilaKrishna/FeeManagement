@@ -46,7 +46,7 @@ public class FeeController {
         return feesDto != null ? ResponseEntity.ok(feesDto) : ResponseEntity.notFound().build();
     }
     
-    @Operation(summary = "Get a fee by ID", description = "Retrieve detailed fee information by its ID")
+    @Operation(summary = "Get a fee detail by  stundent ID", description = "Retrieve  fee Detail information by stundent ID")
     @GetMapping("/fees/student/{studentId}")
     public List<FeesDto> getReceiptId(@PathVariable Long studentId) {
         List<FeesDto> receiptsByStudentId = feeService.getFeeByStudentId(studentId);

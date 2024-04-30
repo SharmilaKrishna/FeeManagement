@@ -19,7 +19,6 @@ public interface FeeRepository extends JpaRepository<Fees, Long> {
 	           "WHERE f.feesId = :feesId")
 	    FeesDto findFeesDtoById(@Param("feesId") Long feesId);
 
-//	List<FeesDto> findByStudentId(Long studentId);
 
 	@Query("SELECT new com.fees.dto.FeesDto(f.studentId, f.amount, f.paymentDate, f.status, r.studentName, r.referenceNumber, r.cardNumber, r.cardType, r.receiptId) " +
 	           "FROM Fees f " +

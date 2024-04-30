@@ -2,6 +2,8 @@ package com.fees.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.fees.dto.FeesDto;
 import com.fees.entity.Fees;
 import com.fees.entity.Receipt;
